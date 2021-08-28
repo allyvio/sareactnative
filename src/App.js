@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Text, View, Button } from 'react-native'
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
+import CallApiVanilla from './pages/CallApiVanilla';
 
 // import ProductItem from './pages/ProductItem'
 // import PertemuanSatu from './pages/PertemuanSatu'
@@ -24,40 +24,41 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 //   }
 // }
 // arrow function js
-const HomeScreen = ({ navigation }) => {
-    return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Text>Home Screen</Text>
-            <Button
-                title="Go to Details"
-                onPress={() => navigation.navigate('Details')}
-            />
-        </View>
-    );
-}
-function DetailsScreen({ navigation }) {
-    return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Text>Details Screen</Text>
-            {/* <Button title="Go to Home 1" onPress={() => navigation.navigate('Home')} /> */}
-            <Button title="Go to detail" onPress={() => navigation.push('Details')} />
-            <Button title="Go back" onPress={() => navigation.goBack()} />
-            <Button
-                title="Go back to first screen in stack"
-                onPress={() => navigation.popToTop()}
-            />
-        </View>
-    );
-}
+// const HomeScreen = ({ navigation }) => {
+//     return (
+//         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+//             <Text>Home Screen</Text>
+//             <Button
+//                 title="Go to Details"
+//                 onPress={() => navigation.navigate('Details')}
+//             />
+//         </View>
+//     );
+// }
+// function DetailsScreen({ navigation }) {
+//     return (
+//         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+//             <Text>Details Screen</Text>
+//             {/* <Button title="Go to Home 1" onPress={() => navigation.navigate('Home')} /> */}
+//             <Button title="Go to detail" onPress={() => navigation.push('Details')} />
+//             <Button title="Go back" onPress={() => navigation.goBack()} />
+//             <Button
+//                 title="Go back to first screen in stack"
+//                 onPress={() => navigation.popToTop()}
+//             />
+//         </View>
+//     );
+// }
 const Stack = createNativeStackNavigator();
 
 const App = () => {
-    return <NavigationContainer>
-        <Stack.Navigator>
-            <Stack.Screen name="Home" component={HomeScreen} />
-            <Stack.Screen name="Details" component={DetailsScreen} />
-        </Stack.Navigator>
-    </NavigationContainer>
+    return <CallApiVanilla />
+    // <NavigationContainer>
+    //     <Stack.Navigator>
+    //         <Stack.Screen name="Home" component={HomeScreen} />
+    //         <Stack.Screen name="Details" component={DetailsScreen} />
+    //     </Stack.Navigator>
+    // </NavigationContainer>
     {/* <FlexBox /> */ }
     {/* <Navbar /> */ }
     {/* <ScrollView>
