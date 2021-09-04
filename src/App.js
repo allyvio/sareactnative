@@ -4,6 +4,8 @@ import { Text, View, Button } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import CallApiVanilla from './pages/CallApiVanilla';
+import CallApiAxios from './pages/CallApiAxios';
+import MateriCrud from './pages/MateriCrud';
 
 // import ProductItem from './pages/ProductItem'
 // import PertemuanSatu from './pages/PertemuanSatu'
@@ -52,7 +54,8 @@ import CallApiVanilla from './pages/CallApiVanilla';
 const Stack = createNativeStackNavigator();
 
 const App = () => {
-    return <CallApiVanilla />
+    return <MateriCrud />
+    // <CallApiAxios />
     // <NavigationContainer>
     //     <Stack.Navigator>
     //         <Stack.Screen name="Home" component={HomeScreen} />
