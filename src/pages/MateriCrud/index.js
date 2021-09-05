@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, TextInput, Button, Image } from 'react-native'
+import { View, Text, StyleSheet, TextInput, Button, Image, TouchableOpacity } from 'react-native'
 import axios from 'axios'
 
 
@@ -7,6 +7,8 @@ const MateriCrud = () => {
     const [nama, setNama] = useState("")
     const [email, setEmail] = useState("")
     const [job, setJob] = useState("")
+    const [button, setButton] = useState("simpan")
+    const [selectUser, setSelectUser] = useState([])
 
     const [users, setUser] = useState([])
     const submit = () => {
@@ -15,13 +17,24 @@ const MateriCrud = () => {
             email,
             job
         }
-        axios.post('http://10.0.2.2:3004/users', payloads)
-            .then(res => {
-                setNama("")
-                setEmail("")
-                setJob("")
-                getData()
-            })
+        if (button === "simpan") {
+            axios.post('http://10.0.2.2:3004/users', payloads)
+                .then(res => {
+                    setNama("")
+                    setEmail("")
+                    setJob("")
+                    getData()
+                })
+        } else if (button === "update") {
+            axios.put(`http://10.0.2.2:3004/users/${selectUser.id}`, payloads)
+                .then(res => {
+                    setNama("")
+                    setEmail("")
+                    setJob("")
+                    setButton("simpan")
+                    getData()
+                })
+        }
     }
     useEffect(() => {
         getData()
@@ -33,6 +46,14 @@ const MateriCrud = () => {
                 setUser(res.data)
             })
     }
+
+    const selectedUser = (user) => {
+        setNama(user.nama)
+        setEmail(user.email)
+        setJob(user.job)
+        setSelectUser(user)
+        setButton("update")
+    }
     return (
         <View style={style.container}>
             <Text style={style.textTitle}>Materi Crud</Text>
@@ -40,21 +61,16 @@ const MateriCrud = () => {
             <TextInput placeholder="Nama lengkap" style={style.input} onChangeText={(value) => setNama(value)} value={nama} />
             <TextInput placeholder="email" style={style.input} onChangeText={(value) => setEmail(value)} value={email} />
             <TextInput placeholder="job" style={style.input} onChangeText={(value) => setJob(value)} value={job} />
-            <Button title="simpan" onPress={submit} />
+            <Button title={button} onPress={submit} />
             <View style={style.line} />
             {users.map(user => {
-                return <Items nama={user.nama} email={user.email} job={user.job} id={user.id} getData={getData} />
+                return <Items key={user.id} nama={user.nama} email={user.email} job={user.job} id={user.id} getData={getData} onPress={() => selectedUser(user)} />
             })}
         </View>
     )
 }
-export default MateriCrud
-
 const Items = (props) => {
     const hapus = (id) => {
-        deleteData(id)
-    }
-    const deleteData = (id) => {
         axios.delete(`http://10.0.2.2:3004/users/${id}`)
             .then(res => {
                 console.log(res)
@@ -62,7 +78,9 @@ const Items = (props) => {
             })
     }
     return <View style={style.itemCard}>
-        <Image source={{ uri: `https://i.pravatar.cc/150?u=${props.email}` }} style={style.avatar} />
+        <TouchableOpacity onPress={props.onPress}>
+            <Image source={{ uri: `https://i.pravatar.cc/150?u=${props.email}` }} style={style.avatar} />
+        </TouchableOpacity>
         <View style={style.bio}>
             <Text style={style.textNama}>{props.nama}</Text>
             <Text style={style.textEmail}>{props.email}</Text>
@@ -71,6 +89,7 @@ const Items = (props) => {
         <Text style={style.delete} onPress={() => hapus(props.id)}>x</Text>
     </View>
 }
+export default MateriCrud
 const style = StyleSheet.create({
     container: { padding: 20 },
     textTitle: { textAlign: 'center' },
