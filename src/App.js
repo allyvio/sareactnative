@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Text, View, Button } from 'react-native'
 
 import { NavigationContainer } from '@react-navigation/native';
@@ -6,6 +6,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import CallApiVanilla from './pages/CallApiVanilla';
 import CallApiAxios from './pages/CallApiAxios';
 import MateriCrud from './pages/MateriCrud';
+import Lifecycle from './pages/Lifecycle';
+import MateriAsync from './pages/MateriAsync';
 
 // import ProductItem from './pages/ProductItem'
 // import PertemuanSatu from './pages/PertemuanSatu'
@@ -54,7 +56,16 @@ import MateriCrud from './pages/MateriCrud';
 const Stack = createNativeStackNavigator();
 
 const App = () => {
-    return <MateriCrud />
+    // const [isShow, setShow] = useState(true)
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         setShow(false)
+    //     }, 5000)
+    // }, [])
+    return <Lifecycle />
+    // <View>
+    //     {isShow && <Lifecycle />}
+    // </View>
     // <CallApiAxios />
     // <NavigationContainer>
     //     <Stack.Navigator>
